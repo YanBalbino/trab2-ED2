@@ -1,3 +1,5 @@
+package components;
+
 import java.time.LocalDateTime;
 
 public class OrdemServico {
@@ -13,9 +15,17 @@ public class OrdemServico {
         this.data = data;
     }
 
+    public void imprimirOS(){
+        System.out.println("Código: " + this.getCodigo());
+        System.out.println("Nome: " + this.getNome());
+        System.out.println("Descrição: " + this.getDescricao());
+        System.out.println("Data: " + this.getData());
+    }
+
     public int getCodigo(){
         return codigo;
     }
+
     public void setCodigo(int codigo){
         if (codigo < 0){
             throw new IllegalArgumentException("Código inválido");
@@ -26,6 +36,7 @@ public class OrdemServico {
     public String getNome(){
         return nome;
     }
+
     public void setNome(String nome){
         if (nome == null || nome.trim().equals("")){
             throw new IllegalArgumentException("Nome inválido");
@@ -36,6 +47,7 @@ public class OrdemServico {
     public String getDescricao(){
         return descricao;
     }
+
     public void setDescricao(String descricao){
         if (descricao == null || descricao.trim().equals("")){
             throw new IllegalArgumentException("Descrição inválida");
@@ -46,6 +58,7 @@ public class OrdemServico {
     public LocalDateTime getData(){
         return data;
     }
+    
     public void setData(LocalDateTime data){
         if (data == null){
             throw new IllegalArgumentException("Data inválida");

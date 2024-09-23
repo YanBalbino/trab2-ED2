@@ -1,5 +1,10 @@
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import components.Cliente;
+import components.OrdemServico;
+import components.Servidor;
 
 public class App {
     public static void main(String[] args){
@@ -8,6 +13,7 @@ public class App {
         Servidor servidor = new Servidor();
 
         cliente.gerarOS(servidor);
+        cliente.preencherCache(servidor);
 
         int op = -1;
         Scanner s = new Scanner(System.in);
