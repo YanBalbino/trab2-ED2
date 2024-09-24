@@ -1,14 +1,15 @@
 package components;
 
-import utils.No;
-import utils.TabelaHashEncadeada;
+import java.util.Random;
 
-//TODO hash de endereçamento aberto
+import utils.No;
+import utils.TabelaComDuploHash;
+
 
 public class Cache {
-    public TabelaHashInt cache;
+    public TabelaComDuploHash cache;
     public Cache(){
-        cache = new TabelaHashEncadeada(20);
+        cache = new TabelaComDuploHash(20);
     }
 
     public boolean isRegistradoCache(int codigo){
@@ -24,9 +25,6 @@ public class Cache {
         if (busca != null){
             return busca.os;
         }
-        else{
-            System.out.println("Ordem de serviço não encontrada na cache");
-        }
         return null;
     }
 
@@ -35,10 +33,10 @@ public class Cache {
             System.out.println("Ordem de serviço já registrada na cache");
             return;
         }
-        else{
-            
-            cache.inserir(os);
+        else if (cache.isFull()){
+            randomRemove();
         }
+        cache.inserir(os);
 
     }
 
@@ -47,13 +45,18 @@ public class Cache {
 
     }
 
-
     public void remocaoDireta(int codigo){
        cache.remover(codigo);
     }
 
-    public void remocaoRandom(){
-        //remover um item aleatório da cache
-        
+    public void randomRemove(){
+        Random randomizer = new Random();
+        int id_removido = randomizer.nextInt(20);
+        cache.remover(id_removido);
+        System.out.println("OS removida aleatoriamente: " + id_removido);
+    }
+
+    public void imprimirCache(){
+        cache.imprimirTabelaHash();
     }
 }

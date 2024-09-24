@@ -22,7 +22,7 @@ public class Servidor {
         baseDados = new TabelaHashEncadeada(11);
 
         try{
-            this.logs = new File("logs.txt");
+            this.logs = new File("logs.log");
             if (this.logs.exists()){
                 this.logs.delete();
                 this.logs.createNewFile();
@@ -62,7 +62,7 @@ public class Servidor {
             return busca.os;
         }
         else{
-            System.out.println("Ordem de serviço não encontrada na base de dados.");
+            System.out.println("Ordem de serviço não encontrada.");
         }
         atualizarLog("Busca");
         return null;
@@ -107,17 +107,22 @@ public class Servidor {
         TabelaHashEncadeada bd = getBD();
         No temp;
 
+        try{
+            FileWriter fw = new FileWriter(this.logs, true);
+            fw.write("\nOperação: " + operacao);
+            fw.close();
+        } catch (IOException e){
+            System.out.println("Erro ao atualizar arquivo de logs.");
+        }
+
         for (int i = 0; i < bd.getTam(); i++){
             temp = bd.getNoAt(i);
             try{
-                FileWriter fw = new FileWriter(this.logs, true);
-
-                fw.write(operacao + "\n");
-                fw.close();
-
+                FileWriter fw;
                 while (temp != null){
                     fw = new FileWriter(this.logs, true);
-    
+                    
+                    fw.write("\n");
                     fw.write(temp.os.getCodigo() + " " + temp.os.getNome() +  " " + temp.os.getDescricao() 
                     +  " " + temp.os.getData() + "\n");
     
@@ -125,6 +130,7 @@ public class Servidor {
                     
                     temp = temp.proximo;
                 }
+                
 
             } catch (IOException e){
                 System.out.println("Erro ao atualizar arquivo de logs.");

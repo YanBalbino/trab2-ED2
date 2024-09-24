@@ -49,6 +49,10 @@ public class Cliente{
         servidor.listarOS();
     }
 
+    public void imprimirCache(){
+        cache.imprimirCache();
+    }
+
     public void alterarOS(int codigoOS, OrdemServico os, Servidor servidor){
         if (os == null){
             System.out.println("Ordem de serviço inválida");
@@ -89,7 +93,7 @@ public class Cliente{
         return servidor.qtRegistrosAtual();
     }
 
-    public void gerarOS(Servidor servidor){
+    public void gerarOSInicio(Servidor servidor){
         // Código para gerar as primeiras 70 OS
         System.out.println("Primeiras 70 OS geradas.");
         for (int i = 0; i < 70; i++){
@@ -97,7 +101,7 @@ public class Cliente{
             CadastrarOS(os, servidor);
         }
     }
-    
+
     public void preencherCache(Servidor servidor){
         for (int i = 0; i < 20; i++){
             buscarOS(i, servidor);

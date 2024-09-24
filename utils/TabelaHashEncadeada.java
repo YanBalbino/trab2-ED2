@@ -49,9 +49,10 @@ public class TabelaHashEncadeada {
 		return novaTabela;
 	}
 
+	// função multiplicativa
 	public int hash(int ch) {
-        // mudar função de hash
-		return ch % this.M;
+		double A = (Math.sqrt(5) - 1) / 2; 
+		return (int) (M * ((ch * A) % 1));
 	}
 
 	public void inserir(OrdemServico nova) {
@@ -148,7 +149,7 @@ public class TabelaHashEncadeada {
 			
 			no = this.tabela[i];
 			
-			System.out.println(i + ":");
+			System.out.println("Índice " + i + ":");
 			
 			while (no != null) {
 				System.out.print(" --> ");

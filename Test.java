@@ -1,39 +1,53 @@
-
 import java.time.LocalDateTime;
 
-import utils.TabelaHashEncadeada;
+import components.Cliente;
 import components.OrdemServico;
-
+import components.Servidor;
 
 public class Test {
     public static void main(String args[]){
-        TabelaHashEncadeada tabela = new TabelaHashEncadeada(10);
-        OrdemServico os1 = new OrdemServico(15, "OS1", "OS1", LocalDateTime.now());
-        OrdemServico os2 = new OrdemServico(12, "OS2", "OS2", LocalDateTime.now());
-        OrdemServico os3 = new OrdemServico(10, "OS3", "OS3", LocalDateTime.now());
-        OrdemServico os4 = new OrdemServico(5, "OS4", "OS4", LocalDateTime.now());
-        OrdemServico os5 = new OrdemServico(20, "OS5", "OS5", LocalDateTime.now());
-        OrdemServico os6 = new OrdemServico(25, "OS6", "OS6", LocalDateTime.now());
+        Cliente cliente = new Cliente();
+        Servidor servidor = new Servidor();
 
+        OrdemServico os1 = new OrdemServico(0, "nome0", "descricao0", LocalDateTime.now());
+        cliente.CadastrarOS(os1, servidor);
+        OrdemServico os2 = new OrdemServico(1, "nome1", "descricao1", LocalDateTime.now());
+        cliente.CadastrarOS(os2, servidor);
+        OrdemServico os3 = new OrdemServico(2, "nome2", "descricao2", LocalDateTime.now());
+        cliente.CadastrarOS(os3, servidor);
+        OrdemServico os4 = new OrdemServico(3, "nome3", "descricao3", LocalDateTime.now());
+        cliente.CadastrarOS(os4, servidor);
+        OrdemServico os8 = new OrdemServico(51, "nome51", "descricao51", LocalDateTime.now());
+        cliente.CadastrarOS(os8, servidor);
 
-        tabela.inserir(os1);
-        tabela.inserir(os2);
-        tabela.inserir(os3);
-        tabela.inserir(os4);
-        tabela.inserir(os5);
-        tabela.inserir(os6);
+        cliente.buscarOS(0, servidor);
+        cliente.buscarOS(1, servidor);
+        cliente.buscarOS(1, servidor);
+        cliente.buscarOS(2, servidor);
+        cliente.buscarOS(3, servidor);
+        cliente.buscarOS(51, servidor);
+        cliente.buscarOS(315, servidor);
 
-        tabela.imprimirTabelaHash();
-
-        System.out.println("Busca do 15 na tabela: ");
-        tabela.buscar(15).os.imprimirOS();
-
-        tabela.remover(15);
-        System.out.println("Tabela pós remoção do 15:\n");
-        tabela.imprimirTabelaHash();
-        tabela.remover(20);
+        System.out.println("Cache:");
+        cliente.imprimirCache();
         System.out.println();
-        System.out.println("Tabela pós remoção do 20:\n");
-        tabela.imprimirTabelaHash();
+        System.out.println("Registros no servidor:");
+        cliente.listarOS(servidor);
+
+        OrdemServico alterar = new OrdemServico(51, "nome18", "descricao18", LocalDateTime.now());
+        cliente.alterarOS(51, alterar, servidor);
+
+        System.out.println("Cache com alteração:");
+        cliente.imprimirCache();
+        System.out.println();
+        System.out.println("Registros no servidor com alteração:");
+        cliente.listarOS(servidor);
+
+        cliente.removerOS(51, servidor);
+        System.out.println("Cache pós remoção:");
+        cliente.imprimirCache();
+        System.out.println();
+        System.out.println("Registros no servidor pós remoção:");
+        cliente.listarOS(servidor);
     }
 }

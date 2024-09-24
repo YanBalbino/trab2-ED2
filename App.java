@@ -12,7 +12,7 @@ public class App {
         Cliente cliente = new Cliente();
         Servidor servidor = new Servidor();
 
-        cliente.gerarOS(servidor);
+        cliente.gerarOSInicio(servidor);
         cliente.preencherCache(servidor);
 
         int op = -1;
