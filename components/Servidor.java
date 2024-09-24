@@ -5,17 +5,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import utils.No;
-import utils.TabelaHashExt;
+import utils.TabelaHashEncadeada;
 
 public class Servidor {
-    static int totalRegistros;
-    private TabelaHashExt baseDados;
-    File logs;
+    private static int totalRegistros;
+    private TabelaHashEncadeada baseDados;
+    private File logs;
 
     public Servidor(){
         totalRegistros = 0;
-        // fazer tamanho expansível
-        baseDados = new TabelaHashExt(20);
+        
+        // considerando os 70 elementos
+        // 70 / 5 = 14
+        // 70 / 10 = 7
+        // primos entre 14 e 7: 11, 13
+        baseDados = new TabelaHashEncadeada(11);
 
         try{
             this.logs = new File("logs.txt");
@@ -31,11 +35,11 @@ public class Servidor {
         }
     }
 
-    public void setBaseDados(TabelaHashExt bd){
+    public void setBaseDados(TabelaHashEncadeada bd){
         this.baseDados = bd;
     }
 
-    private TabelaHashExt getBD(){
+    private TabelaHashEncadeada getBD(){
         return this.baseDados;
     }
 
@@ -64,7 +68,6 @@ public class Servidor {
         return null;
     }   
 
-    // Tenho a impressão de estar fazendo isso muito errado
     public void CadastrarOS(OrdemServico os){
         if (baseDados.fatorCarga() > 0.75){
             expandirBD(baseDados.getTam());
@@ -81,9 +84,9 @@ public class Servidor {
     }
 
     public void alterarOS(int codigoOS, OrdemServico os){
-        atualizarLog("Alteração");
         baseDados.alterar(codigoOS, os);
         System.out.println("Ordem de serviço alterada no servidor com sucesso");
+        atualizarLog("Alteração");
     }
 
     public void removerOS(int codigoOS){
@@ -92,27 +95,16 @@ public class Servidor {
     }  
 
     public int qtRegistrosAtual(){
-        int qt = 0;
-        TabelaHashExt bd = getBD();
-        for (int i = 0; i < bd.getTam(); i++){
-            No no = bd.getNoAt(i);
-
-            while (no != null){
-                qt++;
-                no = no.proximo;
-            }
-        }
-
-        return qt;
+        return baseDados.getQtRegistros();
     }
 
     public void expandirBD(int tamAtual){
-        TabelaHashExt expandida = baseDados.resize((int)(tamAtual * 1.5));
+        TabelaHashEncadeada expandida = baseDados.resize(tamAtual * 2);
         setBaseDados(expandida);
     }
 
     private void atualizarLog(String operacao){
-        TabelaHashExt bd = getBD();
+        TabelaHashEncadeada bd = getBD();
         No temp;
 
         for (int i = 0; i < bd.getTam(); i++){

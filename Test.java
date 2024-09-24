@@ -1,13 +1,13 @@
 
 import java.time.LocalDateTime;
 
-import utils.TabelaHashExt;
+import utils.TabelaHashEncadeada;
 import components.OrdemServico;
 
 
 public class Test {
     public static void main(String args[]){
-        TabelaHashExt tabela = new TabelaHashExt(10);
+        TabelaHashEncadeada tabela = new TabelaHashEncadeada(10);
         OrdemServico os1 = new OrdemServico(15, "OS1", "OS1", LocalDateTime.now());
         OrdemServico os2 = new OrdemServico(12, "OS2", "OS2", LocalDateTime.now());
         OrdemServico os3 = new OrdemServico(10, "OS3", "OS3", LocalDateTime.now());

@@ -1,14 +1,14 @@
 package components;
 
 import utils.No;
-import utils.TabelaHashExt;
+import utils.TabelaHashEncadeada;
 
-//TODO hash de endereçamento interior/aberto
+//TODO hash de endereçamento aberto
 
 public class Cache {
     public TabelaHashInt cache;
     public Cache(){
-        cache = new TabelaHashExt(20);
+        cache = new TabelaHashEncadeada(20);
     }
 
     public boolean isRegistradoCache(int codigo){

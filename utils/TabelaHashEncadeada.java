@@ -2,12 +2,14 @@ package utils;
 
 import components.OrdemServico;
 
-public class TabelaHashExt {
-	int M;
-	No tabela[];
+public class TabelaHashEncadeada {
+	private int M;
+	private int qtRegistros;
+	private No tabela[];
 	
-	public TabelaHashExt(int tam) {
+	public TabelaHashEncadeada(int tam) {
 		setTam(tam);
+		qtRegistros = 0;
 		this.tabela = new No[this.M];
 	}
 	
@@ -23,26 +25,19 @@ public class TabelaHashExt {
 		if (tam < 0){
 			return;
 		}
-		if (tam < this.getTam()){
-			return;
-		}
 		this.M = tam;
 	}
 
-	public double fatorCarga(){
-		int qt = 0;
-		No no;
-		for (int i = 0; i < this.getTam(); i++){
-			no = this.tabela[i];
-			if (no != null){
-				qt++;
-			}
-		}
-		return (double) qt / this.M;
+	public int getQtRegistros(){
+		return this.qtRegistros;
 	}
 
-	public TabelaHashExt resize(int novoTam){
-		TabelaHashExt novaTabela = new TabelaHashExt(novoTam);
+	public double fatorCarga(){
+		return this.getQtRegistros() / getTam();
+	}
+
+	public TabelaHashEncadeada resize(int novoTam){
+		TabelaHashEncadeada novaTabela = new TabelaHashEncadeada(novoTam);
 		No no;
 		for (int i = 0; i < this.M; i++){
 			no = this.tabela[i];
@@ -79,6 +74,7 @@ public class TabelaHashExt {
 			no.os = nova;
 			no.proximo = this.tabela[h];
 			this.tabela[h] = no;
+			qtRegistros++;
 		}
 		
 	}
@@ -142,7 +138,7 @@ public class TabelaHashExt {
 		} else {
 			anterior.proximo = no.proximo;
 		}
-		
+		qtRegistros--;
 	}
 	
 	public void imprimirTabelaHash() {
