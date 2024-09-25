@@ -16,10 +16,10 @@ public class OrdemServico {
     }
 
     public void imprimirOS(){
-        System.out.println("Código: " + this.getCodigo());
-        System.out.println("Nome: " + this.getNome());
-        System.out.println("Descrição: " + this.getDescricao());
-        System.out.println("Data: " + this.getData());
+        System.out.print("Código: " + this.getCodigo() + " | ");
+        System.out.print("Nome: " + this.getNome()+ " | ");
+        System.out.print("Descrição: " + this.getDescricao()+ " | ");
+        System.out.print("Data: " + this.getData()+ " | \n");
     }
 
     public int getCodigo(){

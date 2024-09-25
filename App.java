@@ -46,7 +46,7 @@ public class App {
                         System.out.println("Código: " + busca.getCodigo());
                         System.out.println("Nome: " + busca.getNome());
                         System.out.println("Descrição: " + busca.getDescricao());
-                        System.out.println("Data: " + busca.getData());
+                        System.out.println("Data: " + busca.getData() + "\n");
                     } else {
                         System.out.println("Ordem de Serviço não encontrada");
                     }
@@ -61,10 +61,12 @@ public class App {
                 case 4:
                     System.out.println("Digite o código da Ordem de Serviço:");
                     int codigoOS = s.nextInt();
+                    s.nextLine();
+
                     System.out.println("Digite o nome da Ordem de Serviço:");
-                    String nomeOS = s.next();
+                    String nomeOS = s.nextLine();
                     System.out.println("Digite a descrição da Ordem de Serviço:");
-                    String descricaoOS = s.next();
+                    String descricaoOS = s.nextLine();
 
                     OrdemServico alterada = new OrdemServico(codigoOS, nomeOS, descricaoOS, LocalDateTime.now());
                     cliente.alterarOS(codigoOS, alterada, servidor);
@@ -80,6 +82,11 @@ public class App {
                 // quantidade de registros
                 case 6:
                     System.out.println("Quantidade de registros: " + cliente.qtRegistros(servidor));
+                    break;
+                
+                case 7:
+                    System.out.println();
+                    cliente.imprimirCache();
                     break;
 
                 // sair
@@ -101,6 +108,7 @@ public class App {
         System.out.println("4 - Alterar Ordem de Serviço");
         System.out.println("5 - Remover Ordem de Serviço");
         System.out.println("6 - Quantidade de Registros");
+        System.out.println("7 - Imprimir Cache");
         System.out.println("0 - Sair");
     }
 }

@@ -13,6 +13,7 @@ public class Cliente{
     public OrdemServico buscarOS(int codigo, Servidor servidor){
         OrdemServico busca = cache.buscarOS(codigo);
         if (busca == null){
+            System.out.println("Ordem de serviço não registrada na cache, buscando no servidor");
             busca = servidor.buscarOS(codigo);
             if (busca == null){
                 return null;
@@ -58,7 +59,7 @@ public class Cliente{
             System.out.println("Ordem de serviço inválida");
             return;
         }
-        if (servidor.isRegistrado(codigoOS) == false){
+        if (servidor.isRegistrado(codigoOS) == false && cache.isRegistradoCache(codigoOS) == false){
             System.out.println("Código de OS não registrado no sistema");
             return;
         }
@@ -81,7 +82,7 @@ public class Cliente{
     }
 
     public void removerOS(int codigoOS, Servidor servidor){
-        if (servidor.isRegistrado(codigoOS) == false){
+        if (servidor.isRegistrado(codigoOS) == false  && cache.isRegistradoCache(codigoOS) == false){
             System.out.println("Código de OS não registrado no sistema");
             return;
         }

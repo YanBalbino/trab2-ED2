@@ -33,12 +33,13 @@ public class Cache {
             System.out.println("Ordem de serviço já registrada na cache");
             return;
         }
-        else if (cache.isFull()){
+        if (cache.isFull()){
             randomRemove();
         }
+        
         cache.inserir(os);
-
     }
+
 
     public void alterarOS(int codigo, OrdemServico os){
         cache.alterar(codigo, os);
@@ -53,10 +54,11 @@ public class Cache {
         Random randomizer = new Random();
         int id_removido = randomizer.nextInt(20);
         cache.remover(id_removido);
-        System.out.println("OS removida aleatoriamente: " + id_removido);
+        System.out.println("OS removida aleatoriamente da cache: " + id_removido);
     }
 
     public void imprimirCache(){
         cache.imprimirTabelaHash();
+        System.out.println();
     }
 }

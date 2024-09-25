@@ -24,30 +24,42 @@ public class TabelaComDuploHash{
 	}
 
 	private int hashA(int ch){
-		double A = (Math.sqrt(5) - 1) / 2; 
-		return (int) (M * ((ch * A) % 1));
+		//return ch % this.M;
+		 double A = (Math.sqrt(5) - 1) / 2; 
+		return (int) (M * ((ch * A) % 1)); 
 	}
 
 	private int hashB(int ch){
-		return 1 + (ch % (this.M - 3)); // -3 pra garantir um primo menor que M (20 - 3)
+		return 1 + (ch % (this.M - 1)); // -1 pra garantir um primo menor que M (20 - 1)
 	}
 
 	public int hash(int ch, int k) {
 		return (hashA(ch) + k*(hashB(ch))) % this.M; 
 	}
 	
+	private void reordenar(){
+		No antigaTabela[] = this.tabela;
+		this.tabela = new No[this.M];
+		for (No no : antigaTabela){
+			if (no != null){
+				inserir(no.os);
+			}
+		}
+	};
+
 	public void inserir(OrdemServico nova) {
-		
+
 		int tentativa = 0;
 		int h = this.hash(nova.getCodigo(), tentativa);
 		
-		while(this.tabela[h] != null) {
+		while(this.tabela[h] != null && tentativa < this.M) {
 			
 			if (this.tabela[h].os.getCodigo() == nova.getCodigo()) {
 				break;
 			}	
 			
 			h = this.hash(nova.getCodigo(), ++tentativa);
+			System.out.println("Tentativa: " + tentativa + " com o hash: " + h);
 			
 		}
 			
@@ -55,17 +67,17 @@ public class TabelaComDuploHash{
 			
 			this.tabela[h] = new No();
 			this.tabela[h].os = nova;
-			
+			return;
 		}
-		
+
+		System.out.println("Quantidade de tentativas excedeu o limite");
 	}
 	
 	public No buscar(int codigo) {
-		
 		int tentativa = 0;
 		int h = this.hash(codigo, tentativa);
 		
-		while(this.tabela[h] != null) {
+		while(this.tabela[h] != null && tentativa < this.M) {
 			
 			if (this.tabela[h].os.getCodigo() == codigo) {
 				return this.tabela[h];
@@ -73,7 +85,7 @@ public class TabelaComDuploHash{
 			
 			h = this.hash(codigo, ++tentativa);
 		}
-		return null;
+		return null; 
 		
 	}
 	
@@ -94,11 +106,10 @@ public class TabelaComDuploHash{
 	}
 
 	public void remover(int codigo) {
-		
 		int tentativa = 0;
 		int h = this.hash(codigo, tentativa);
 		
-		while(this.tabela[h] != null) {
+		while(this.tabela[h] != null && tentativa < this.M) {
 			
 			if (this.tabela[h].os.getCodigo() == codigo) {
 				this.tabela[h] = null;
@@ -114,8 +125,8 @@ public class TabelaComDuploHash{
 		for(int i = 0; i < this.M; i++) {
 			
 			if (this.tabela[i] != null)
-				System.out.println(i + " --> " + this.tabela[i].os.getCodigo() + " - " + this.tabela[i].os.getNome() 
-				+ " - " + this.tabela[i].os.getDescricao() + " - " + this.tabela[i].os.getData());
+				System.out.println(i + " --> " + this.tabela[i].os.getCodigo() + " | " + this.tabela[i].os.getNome() 
+				+ " | " + this.tabela[i].os.getDescricao() + " | " + this.tabela[i].os.getData() + "\n");
 			else
 				System.out.println(i);
 		}
