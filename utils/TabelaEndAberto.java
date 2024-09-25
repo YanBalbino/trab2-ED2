@@ -4,12 +4,12 @@ package utils;
 import components.OrdemServico;
 
 
-public class TabelaComDuploHash{
+public class TabelaEndAberto{
     int M;
     No tabela[];
     int primoMenor;
    
-    public TabelaComDuploHash(int tam) {
+    public TabelaEndAberto(int tam) {
        
         this.M = tam;
         this.tabela = new No[this.M];
@@ -36,7 +36,6 @@ public class TabelaComDuploHash{
     public int tentativaLinear(int ch, int k) {
         return (hash(ch) + k) % this.M;
     }
-
 
     public void inserir(OrdemServico nova) {
 

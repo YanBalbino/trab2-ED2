@@ -3,13 +3,13 @@ package components;
 import java.util.Random;
 
 import utils.No;
-import utils.TabelaComDuploHash;
+import utils.TabelaEndAberto;
 
 
 public class Cache {
-    public TabelaComDuploHash cache;
+    public TabelaEndAberto cache;
     public Cache(){
-        cache = new TabelaComDuploHash(20);
+        cache = new TabelaEndAberto(20);
     }
 
     public boolean isRegistradoCache(int codigo){
