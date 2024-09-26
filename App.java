@@ -27,9 +27,10 @@ public class App {
                     // chamamento estático pra sempre pegar um código diferente
                     int codigoNova = Servidor.getTotalRegistros() + 1;
                     System.out.println("Digite o nome da Ordem de Serviço:");
-                    String nome = s.next();
+                    s.nextLine();
+                    String nome = s.nextLine();
                     System.out.println("Digite a descrição da Ordem de Serviço:");
-                    String descricao = s.next();
+                    String descricao = s.nextLine();
 
                     OrdemServico novaOS = new OrdemServico(codigoNova, nome, descricao, LocalDateTime.now());
                     cliente.CadastrarOS(novaOS, servidor);
@@ -84,6 +85,7 @@ public class App {
                     System.out.println("Quantidade de registros: " + cliente.qtRegistros(servidor));
                     break;
                 
+                // imprimir cache
                 case 7:
                     System.out.println();
                     cliente.imprimirCache();

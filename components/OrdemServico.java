@@ -15,6 +15,7 @@ public class OrdemServico {
         this.data = data;
     }
 
+    // impressão em linha única
     public void imprimirOS(){
         System.out.print("Código: " + this.getCodigo() + " | ");
         System.out.print("Nome: " + this.getNome()+ " | ");

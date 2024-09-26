@@ -10,10 +10,11 @@ public class Cliente{
         cache = new Cache();
     }
 
+    // buscar
     public OrdemServico buscarOS(int codigo, Servidor servidor){
         OrdemServico busca = cache.buscarOS(codigo);
         if (busca == null){
-            System.out.println("Ordem de serviço não registrada na cache, buscando no servidor");
+            //System.out.println("Ordem de serviço não registrada na cache, buscando no servidor");
             busca = servidor.buscarOS(codigo);
             if (busca == null){
                 return null;
@@ -25,6 +26,7 @@ public class Cliente{
         return busca;
     }
 
+    // cadastrar
     public void CadastrarOS(OrdemServico os, Servidor servidor){
         if (os == null){
             System.out.println("Ordem de serviço inválida");
@@ -46,6 +48,7 @@ public class Cliente{
         
     }
 
+    // listar todas as informações no servidor
     public void listarOS(Servidor servidor){
         servidor.listarOS();
     }
@@ -54,6 +57,7 @@ public class Cliente{
         cache.imprimirCache();
     }
 
+    // alterar 
     public void alterarOS(int codigoOS, OrdemServico os, Servidor servidor){
         if (os == null){
             System.out.println("Ordem de serviço inválida");
@@ -81,6 +85,7 @@ public class Cliente{
         }
     }
 
+    // remover
     public void removerOS(int codigoOS, Servidor servidor){
         if (servidor.isRegistrado(codigoOS) == false  && cache.isRegistradoCache(codigoOS) == false){
             System.out.println("Código de OS não registrado no sistema");
@@ -90,10 +95,12 @@ public class Cliente{
         cache.remocaoDireta(codigoOS);
     }  
 
+    // acessar a quantidade atual de registros na base de dados
     public int qtRegistros(Servidor servidor){
         return servidor.qtRegistrosAtual();
     }
 
+    // gerar as primeiras 70 OS para testes
     public void gerarOSInicio(Servidor servidor){
         // Código para gerar as primeiras 70 OS
         System.out.println("Primeiras 70 OS geradas.");
@@ -103,6 +110,7 @@ public class Cliente{
         }
     }
 
+    // preencher a cache com 20 buscas
     public void preencherCache(Servidor servidor){
         for (int i = 0; i < 20; i++){
             buscarOS(i, servidor);

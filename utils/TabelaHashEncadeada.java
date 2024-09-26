@@ -36,6 +36,7 @@ public class TabelaHashEncadeada {
 		return this.getQtRegistros() / getTam();
 	}
 
+	// cria uma nova tabela com o novo tamanho e copia os elementos antigos
 	public TabelaHashEncadeada resize(int novoTam){
 		TabelaHashEncadeada novaTabela = new TabelaHashEncadeada(novoTam);
 		No no;
@@ -55,6 +56,7 @@ public class TabelaHashEncadeada {
 		return (int) (M * ((ch * A) % 1));
 	}
 
+	// inserção
 	public void inserir(OrdemServico nova) {
 		
 		int h = this.hash(nova.getCodigo());
@@ -80,6 +82,7 @@ public class TabelaHashEncadeada {
 		
 	}
 	
+	// buscar
 	public No buscar(int codigo) {
 		
 		int h = this.hash(codigo);
@@ -97,6 +100,7 @@ public class TabelaHashEncadeada {
 		
 	}
 
+	// alterar
 	public void alterar(int codigo, OrdemServico alterada) {
 		
 		int h = this.hash(codigo);
@@ -114,6 +118,7 @@ public class TabelaHashEncadeada {
 		
 	}
 
+	// remover
 	public void remover(int codigo) {
 		
 		int h = this.hash(codigo);
@@ -142,6 +147,7 @@ public class TabelaHashEncadeada {
 		qtRegistros--;
 	}
 	
+	// imprimir índice + elementos da lista (se houver), um por linha
 	public void imprimirTabelaHash() {
 		No no;
 		

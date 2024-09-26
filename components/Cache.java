@@ -12,6 +12,7 @@ public class Cache {
         cache = new TabelaEndAberto(20);
     }
 
+    // verificar se o código existe na cache
     public boolean isRegistradoCache(int codigo){
         No busca = cache.buscar(codigo);
         if (busca != null){
@@ -20,6 +21,7 @@ public class Cache {
         return false;
     }
 
+    // busca
     public OrdemServico buscarOS(int codigo){
         No busca = cache.buscar(codigo);
         if (busca != null){
@@ -28,6 +30,7 @@ public class Cache {
         return null;
     }
 
+    // inserção
     public void adicionarOS(OrdemServico os){
         if (isRegistradoCache(os.codigo)){
             System.out.println("Ordem de serviço já registrada na cache");
@@ -40,16 +43,18 @@ public class Cache {
         cache.inserir(os);
     }
 
-
+    // alteração
     public void alterarOS(int codigo, OrdemServico os){
         cache.alterar(codigo, os);
 
     }
 
+    // remoção direta para o caso de uma remoção na base de dados
     public void remocaoDireta(int codigo){
        cache.remover(codigo);
     }
 
+    // remoção aleatória para garantir a cache eviction
     public void randomRemove(){
         Random randomizer = new Random();
         int id_removido = randomizer.nextInt(20);

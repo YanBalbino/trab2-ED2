@@ -26,20 +26,20 @@ public class TabelaEndAberto{
         return true;
     }
 
-
+    // hash com método da multiplicação, com h(k) = piso(M ((k * A) mod 1))
+    // utilizando o número irracional (√5 - 1) / 2
     private int hash(int ch){
          double A = (Math.sqrt(5) - 1) / 2;
         return (int) (M * ((ch * A) % 1));
     }
 
-
+    // tratamento de colisão por tentativa linear
     public int tentativaLinear(int ch, int k) {
         return (hash(ch) + k) % this.M;
     }
 
+    // inserção
     public void inserir(OrdemServico nova) {
-
-
         int tentativa = 0;
         int h = this.tentativaLinear(nova.getCodigo(), tentativa);
        
@@ -63,6 +63,7 @@ public class TabelaEndAberto{
         System.out.println("Quantidade de tentativas excedeu o limite");
     }
    
+    // buscar
     public No buscar(int codigo) {
         int tentativa = 0;
         int h = this.tentativaLinear(codigo, tentativa);
@@ -79,6 +80,7 @@ public class TabelaEndAberto{
        
     }
    
+    // alterar
     public void alterar(int codigo, OrdemServico alterada){
        
         int tentativa = 0;
@@ -95,7 +97,7 @@ public class TabelaEndAberto{
         }
     }
 
-
+    // remover
     public void remover(int codigo) {
         int tentativa = 0;
         int h = this.tentativaLinear(codigo, tentativa);
@@ -111,7 +113,7 @@ public class TabelaEndAberto{
         }
     }
 
-
+    // imprimir tabela hash
     public void imprimirTabelaHash() {
        
         for(int i = 0; i < this.M; i++) {
@@ -122,7 +124,6 @@ public class TabelaEndAberto{
             else
                 System.out.println(i);
         }
-       
     }
 }
 

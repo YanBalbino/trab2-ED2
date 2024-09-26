@@ -19,8 +19,10 @@ public class Servidor {
         // 70 / 5 = 14
         // 70 / 10 = 7
         // primos entre 14 e 7: 11, 13
+        // tamanho inicial escolhido: 11
         baseDados = new TabelaHashEncadeada(11);
 
+        // abertura do arquivo de logs
         try{
             this.logs = new File("logs.log");
             if (this.logs.exists()){
@@ -43,6 +45,7 @@ public class Servidor {
         return this.baseDados;
     }
 
+    // verifica se uma OS existe na base de dados
     public boolean isRegistrado(int codigo){
         No busca = baseDados.buscar(codigo);
         if (busca != null){
@@ -51,10 +54,12 @@ public class Servidor {
         return false;
     }
 
+    // retorna o total de registros para geração automática de código de OS
     public static int getTotalRegistros(){
         return totalRegistros;
     }
 
+    // buscar
     public OrdemServico buscarOS(int codigo){
         No busca = baseDados.buscar(codigo);
         if (busca != null){
@@ -68,8 +73,9 @@ public class Servidor {
         return null;
     }   
 
+    // cadastrar
     public void CadastrarOS(OrdemServico os){
-        if (baseDados.fatorCarga() > 0.75){
+        if (baseDados.fatorCarga() > 0.9){
             expandirBD(baseDados.getTam());
         }
         baseDados.inserir(os);
@@ -78,31 +84,37 @@ public class Servidor {
         atualizarLog("Cadastro");
     }
 
+    // listar
     public void listarOS(){
         baseDados.imprimirTabelaHash();
         atualizarLog("Listagem");
     }
 
+    // alterar
     public void alterarOS(int codigoOS, OrdemServico os){
         baseDados.alterar(codigoOS, os);
         System.out.println("Ordem de serviço alterada no servidor com sucesso");
         atualizarLog("Alteração");
     }
 
+    //remover
     public void removerOS(int codigoOS){
         baseDados.remover(codigoOS);
         atualizarLog("Remoção");
     }  
 
+    // quantidade de registros atual
     public int qtRegistrosAtual(){
         return baseDados.getQtRegistros();
     }
 
+    // função de expansão da base de dados
     public void expandirBD(int tamAtual){
         TabelaHashEncadeada expandida = baseDados.resize(tamAtual * 2);
         setBaseDados(expandida);
     }
 
+    // função de atualização do arquivo de logs
     private void atualizarLog(String operacao){
         TabelaHashEncadeada bd = getBD();
         No temp;
